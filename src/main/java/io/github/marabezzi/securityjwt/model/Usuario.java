@@ -44,6 +44,9 @@ public class Usuario {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
+	
+	@Column(name = "ativo", nullable = false, columnDefinition = "TINYINT(1)")
+	private boolean ativo;
 
 	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());

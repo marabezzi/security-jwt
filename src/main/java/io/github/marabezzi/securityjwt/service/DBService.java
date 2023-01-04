@@ -1,5 +1,6 @@
 package io.github.marabezzi.securityjwt.service;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.github.marabezzi.securityjwt.model.Usuario;
@@ -12,11 +13,14 @@ import lombok.AllArgsConstructor;
 public class DBService {
  
 	final private UsuarioRepository usuarioRepository;
- 
+
+
 	public void instanciaDB() {
-	Usuario u1 = new Usuario(null, "Administrador", "550.482.150-95", "adm@mail.com", "123");
-	u1.addPerfil(Perfil.ADMIN);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	Usuario u1 = new Usuario(null, "Administrador", "550.482.150-95", "adm@mail.com", encoder.encode("123"));
+	u1.addPerfil(Perfil.USER);
 	
 	usuarioRepository.save(u1);
 	}
+
 }
