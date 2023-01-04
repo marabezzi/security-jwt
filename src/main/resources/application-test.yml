@@ -1,0 +1,25 @@
+server:
+ port: 8081
+ 
+logging:
+  level:
+    org:
+     springframework:
+      security: TRACE
+      jdbc: INFO
+      jpa: TRACE
+      
+spring:
+ datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security_jwt?useTimezone=true&serverTimezone=America/Sao_Paulo
+    username: admin
+    password: 1234
+ jpa:
+    hibernate.ddl-auto: none
+    generate-ddl: true
+    show-sql: true
+    properties:
+     hibernate:
+      format_sql: true
+      dialect: org.hibernate.dialect.MySQLDialect
