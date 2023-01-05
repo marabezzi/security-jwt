@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,6 +38,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable();
+	
 		http.authorizeHttpRequests((authorize) -> authorize				
 			// acessos públicos liberados
 			.requestMatchers("/webjars/**", "/css/**", "/image/**", "/js/**").permitAll()
@@ -52,16 +54,16 @@ public class SecurityConfig {
 			.requestMatchers("/developer/**").hasAuthority(DEVELOPER)
 
 			// acessos privados user
-			.requestMatchers("/api/usuarios/**").hasAuthority(USER)
+			.requestMatchers("/api/usuario/**").hasAuthority(USER)
 			
-
 			.anyRequest().authenticated()
 		)
 		.formLogin()
-		/*	.loginPage("/login")
+		//Se desejar a tela de login do security o loginPage deve ficar comentado
+			//.loginPage("/login")
 			.defaultSuccessUrl("/api/usuarios", true)
 			.failureUrl("/login-error")
-			.permitAll()*/
+			.permitAll()
 		.and()
 			.logout()
 			.logoutSuccessUrl("/")
